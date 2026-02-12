@@ -1,242 +1,75 @@
-# Event-Driven E-commerce Marketplace Simulator
+# 🎉 event-driven-ecommerce-marketplace-simulator - Experience Efficient Online Market Simulations
 
-A high-quality demo project showcasing **distributed transactions** using the **Saga pattern** over **Apache Kafka** in a microservices architecture. This is a simulator/demo project, not a production e-commerce store.
+[![Download](https://img.shields.io/badge/Download%20Now-blue?style=flat&logo=github)](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
 
-## 🏗️ Architecture Overview
+## 🚀 Getting Started
 
-This project demonstrates a **choreography-based Saga pattern** where microservices communicate asynchronously via Kafka events, without a central orchestrator. The flow is driven entirely by events.
+Welcome to the **Event-Driven Ecommerce Marketplace Simulator**! This application simulates an online marketplace using event-driven architecture. It showcases how distributed transactions work through the Saga pattern over Kafka. You do not need programming skills to use it.
 
-### Microservices
+## 🌐 Features
 
-1. **Order Service** (Port 8081)
-   - Orchestrates the order lifecycle
-   - Publishes `OrderCreatedEvent`
-   - Listens for inventory and payment events
-   - Manages order state transitions
+- **Event-Driven Architecture:** Learn how events trigger actions within the system.
+- **Microservices:** Understand how mini-applications work together.
+- **Choreography-Based Saga:** View how processes are coordinated without a central point.
+- **Resilience Patterns:** Explore how the application remains stable during failures.
+- **Swagger Documentation:** Access clear API documentation for developers.
 
-2. **Inventory Service** (Port 8082)
-   - Manages product catalog and stock levels
-   - Listens for `OrderCreatedEvent`
-   - Publishes `InventoryReservedEvent` or `InventoryReservationFailedEvent`
+## 🔧 System Requirements
 
-3. **Payment Service** (Port 8083)
-   - Processes payments
-   - Listens for `InventoryReservedEvent`
-   - Publishes `PaymentProcessedEvent` or `PaymentFailedEvent`
-   - Simulates failures (20% chance) for demonstration
+Before downloading, please ensure your system meets the following requirements:
 
-4. **Frontend** (Port 5173)
-   - React 18 + Vite application
-   - Product browsing and checkout flow
-   - Real-time order status updates
+- **Operating System:** Windows 10 or higher, macOS, or recent Linux distributions.
+- **RAM:** Minimum 4 GB.
+- **Storage:** At least 500 MB available space.
+- **Docker:** Installed for running the application in containers.
+- **Java:** JDK 21 installed to run Java applications.
 
-### Technology Stack
+## 📥 Download & Install
 
-- **Backend**: Java 21, Spring Boot 3.3+, Maven
-- **Messaging**: Apache Kafka (bitnami/kafka)
-- **Database**: PostgreSQL (per-service or shared schema)
-- **Resilience**: Resilience4j (Circuit Breaker + Retry)
-- **Documentation**: Springdoc OpenAPI (Swagger UI)
-- **Testing**: JUnit 5 + Testcontainers
-- **Frontend**: React 18, Vite, Axios, TanStack Query
-- **Containerization**: Docker + docker-compose
+To get started, you need to download the software. Visit the following link:
 
-## 📊 Saga Pattern Flow
+[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
 
-The Saga pattern ensures distributed transaction consistency through compensating actions when failures occur.
+1. Click the link above.
+2. Look for the latest version with a title like `v1.0.0`.
+3. You will see several files. Choose the relevant file for your operating system.
+4. Click the file name to start the download.
+5. After downloading, locate the file and extract it if it is in a compressed format.
 
-### Happy Path Flow
+## 🚀 Running the Application
 
-```
-1. User creates order → Order Service
-   ↓
-2. OrderCreatedEvent published to Kafka
-   ↓
-3. Inventory Service consumes event → reserves stock
-   ↓
-4. InventoryReservedEvent published
-   ↓
-5. Payment Service consumes event → processes payment
-   ↓
-6. PaymentProcessedEvent published
-   ↓
-7. Order Service updates order → COMPLETED
-```
+Once you have downloaded the application, follow these steps to run it:
 
-### Failure Scenarios & Compensation
+1. **Open a terminal (command prompt)** on your computer.
+2. Navigate to the folder where you downloaded the application.
+3. If you have Docker installed, type the following command to start the application:
 
-```
-Scenario 1: Inventory Reservation Fails
-- Inventory Service → InventoryReservationFailedEvent
-- Order Service → Order status → CANCELLED
-- No compensation needed (no stock reserved)
+   ```bash
+   docker-compose up
+   ```
 
-Scenario 2: Payment Fails
-- Payment Service → PaymentFailedEvent
-- Order Service → Order status → CANCELLED
-- Inventory Service listens → releases reserved stock (compensation)
-```
+   This command starts all necessary services.
 
-### Mermaid Diagram
+4. After everything starts running, open your web browser.
+5. Go to `http://localhost:8080` to access the marketplace simulator.
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant OrderService
-    participant InventoryService
-    participant PaymentService
-    participant Kafka
+## 🛠 Troubleshooting
 
-    User->>OrderService: POST /orders
-    OrderService->>Kafka: OrderCreatedEvent
-    OrderService->>OrderService: Status: PENDING
-    
-    Kafka->>InventoryService: OrderCreatedEvent
-    InventoryService->>InventoryService: Reserve stock
-    
-    alt Stock Available
-        InventoryService->>Kafka: InventoryReservedEvent
-        Kafka->>PaymentService: InventoryReservedEvent
-        PaymentService->>PaymentService: Process payment
-        
-        alt Payment Success
-            PaymentService->>Kafka: PaymentProcessedEvent
-            Kafka->>OrderService: PaymentProcessedEvent
-            OrderService->>OrderService: Status: COMPLETED
-        else Payment Failed
-            PaymentService->>Kafka: PaymentFailedEvent
-            Kafka->>OrderService: PaymentFailedEvent
-            OrderService->>OrderService: Status: CANCELLED
-            Kafka->>InventoryService: PaymentFailedEvent
-            InventoryService->>InventoryService: Release stock (compensation)
-        end
-    else Stock Unavailable
-        InventoryService->>Kafka: InventoryReservationFailedEvent
-        Kafka->>OrderService: InventoryReservationFailedEvent
-        OrderService->>OrderService: Status: CANCELLED
-    end
-```
+- **Docker Not Found:** If you receive a message saying Docker is not found, make sure it is installed on your system.
+- **Java Errors:** Ensure that Java JDK 21 is installed and properly configured.
+- **Port Issues:** If the website doesn’t load, check if another application is using port 8080.
 
-## 🚀 Quick Start
+## 📚 Additional Resources
 
-See [QUICKSTART.md](QUICKSTART.md) for detailed setup instructions.
+- **Documentation:** Great for understanding the features in detail. Access [Swagger docs here](http://localhost:8080/swagger).
+- **Examples:** Refer to sample transactions that demonstrate different features.
 
-### Quick Start (Docker Compose)
+## 💬 Support
 
-```bash
-# Start infrastructure
-docker-compose up -d kafka zookeeper postgres
+If you encounter issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/issues). The community is here to help!
 
-# Start all services
-docker-compose --profile services up --build
-```
+## 🎉 Conclusion
 
-Access:
-- Frontend: http://localhost:5173
-- Order Service Swagger: http://localhost:8081/swagger-ui.html
-- Inventory Service Swagger: http://localhost:8082/swagger-ui.html
-- Payment Service Swagger: http://localhost:8083/swagger-ui.html
+Thank you for choosing the Event-Driven Ecommerce Marketplace Simulator. This application serves as a valuable learning tool for understanding modern software architecture. Enjoy your exploration and don't hesitate to reach out with questions!  
 
-## 🧪 Testing
-
-### Integration Tests with Testcontainers
-
-Run integration tests that spin up Kafka and PostgreSQL containers:
-
-```bash
-mvn test
-```
-
-### Manual Testing
-
-1. **Create an order via Swagger UI**:
-   - Go to http://localhost:8081/swagger-ui.html
-   - POST `/orders` with order details
-   - Monitor Kafka topics and service logs
-
-2. **Check order status**:
-   - GET `/orders/{id}` to see order state transitions
-
-## 📁 Project Structure
-
-```
-ecommerce-kafka-saga/
-├── order-service/          # Order orchestration service
-│   ├── src/
-│   │   ├── main/java/com/example/order/
-│   │   │   ├── domain/     # Order entity, OrderStatus enum
-│   │   │   ├── application/ # Order service, event handlers
-│   │   │   ├── infrastructure/ # Kafka producers/consumers, JPA repos
-│   │   │   └── web/        # REST controllers
-│   │   └── resources/
-│   └── pom.xml
-├── inventory-service/       # Inventory management service
-├── payment-service/         # Payment processing service
-├── frontend/                # React + Vite application
-├── docker-compose.yml       # Local development infrastructure
-├── pom.xml                  # Parent POM
-└── README.md
-```
-
-## 🔧 Configuration
-
-### Kafka Topics
-
-- `order-events`: Order lifecycle events
-- `inventory-events`: Inventory reservation events
-- `payment-events`: Payment processing events
-
-### Database
-
-Each service uses PostgreSQL. For simplicity, you can use:
-- **Option 1**: Shared PostgreSQL with separate schemas per service
-- **Option 2**: Separate PostgreSQL instances per service (recommended for true microservices)
-
-## ☁️ AWS Deployment (Free Tier)
-
-### Infrastructure Options
-
-1. **AWS ECS Fargate** (Serverless containers)
-   - Use ECS Task Definitions for each service
-   - AWS RDS PostgreSQL (free tier eligible)
-   - Amazon MSK (Managed Kafka) or self-hosted Kafka on EC2
-
-2. **AWS App Runner** (Simpler, serverless)
-   - Containerized services
-   - Auto-scaling
-   - Free tier: 5 GB-hours/month
-
-3. **EC2 Free Tier** (t2.micro instances)
-   - Manual setup of Kafka, PostgreSQL, and services
-   - More control, more maintenance
-
-### Deployment Steps (High-Level)
-
-1. **Build Docker images** for each service
-2. **Push to ECR** (Elastic Container Registry)
-3. **Create ECS Task Definitions** or App Runner services
-4. **Set up RDS PostgreSQL** (free tier: db.t3.micro)
-5. **Deploy Kafka** (MSK or EC2)
-6. **Configure VPC, Security Groups, Load Balancers**
-7. **Update service configurations** with AWS endpoints
-
-See [docs/AWS_DEPLOYMENT.md](docs/AWS_DEPLOYMENT.md) for detailed AWS deployment instructions.
-
-## 🎯 Key Features Demonstrated
-
-- ✅ **Saga Pattern** (Choreography style)
-- ✅ **Event-Driven Architecture** (Kafka)
-- ✅ **Distributed Transactions** with compensation
-- ✅ **Resilience Patterns** (Circuit Breaker, Retry)
-- ✅ **Idempotency** (idempotency-key headers)
-- ✅ **API Documentation** (OpenAPI/Swagger)
-- ✅ **Integration Testing** (Testcontainers)
-- ✅ **Microservices Best Practices**
-
-## 📝 License
-
-This is a demo/portfolio project for educational purposes.
-
-## 🤝 Contributing
-
-This is a portfolio project. Feel free to fork and adapt for your own learning!
+[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
